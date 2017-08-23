@@ -18,10 +18,8 @@ public class HomeController {
 
     private final MoviesBean moviesBean;
     private final AlbumsBean albumsBean;
-
     private final MovieFixtures movieFixtures;
     private final AlbumFixtures albumFixtures;
-
     private final PlatformTransactionManager moviesTransactionManager;
     private final PlatformTransactionManager albumsTransactionManager;
 
@@ -33,7 +31,6 @@ public class HomeController {
         this.moviesTransactionManager = moviesTransactionManager;
         this.albumsTransactionManager = albumsTransactionManager;
     }
-
 
     @GetMapping("/")
     public String index() {
@@ -51,23 +48,23 @@ public class HomeController {
         return "setup";
     }
 
-    private void createAlbums() {
-        TransactionStatus transaction = albumsTransactionManager.getTransaction(null);
-
-        for (Album album : albumFixtures.load()) {
-            albumsBean.addAlbum(album);
-        }
-
-        albumsTransactionManager.commit(transaction);
-    }
-
     private void createMovies() {
-        TransactionStatus transaction = moviesTransactionManager.getTransaction(null);
+        final TransactionStatus transaction = moviesTransactionManager.getTransaction(null);
 
         for (Movie movie : movieFixtures.load()) {
             moviesBean.addMovie(movie);
         }
 
         moviesTransactionManager.commit(transaction);
+    }
+
+    private void createAlbums() {
+        final TransactionStatus transaction = albumsTransactionManager.getTransaction(null);
+
+        for (Album album : albumFixtures.load()) {
+            albumsBean.addAlbum(album);
+        }
+
+        albumsTransactionManager.commit(transaction);
     }
 }

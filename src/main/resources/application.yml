@@ -1,3 +1,13 @@
+moviefun:
+  datasources:
+    movies:
+      url: jdbc:mysql://localhost:3306/movies?useSSL=false
+      username: movie
+      password: movie
+    albums:
+      url: jdbc:mysql://localhost:3306/albums?useSSL=false
+      username: movie
+      password: movie
 spring:
   mvc.view:
     prefix: /WEB-INF/
